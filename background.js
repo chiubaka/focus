@@ -1,11 +1,10 @@
-var activeListener;
-reloadMatchPatterns().then(function(listener) {
-  activeListener = listener;
-});
+reloadMatchPatterns();
 
 browser.storage.onChanged.addListener(function(changes, areaName) {
-  console.log("Reloading in response to storage change.");
-  browser.runtime.reload();
+  var matchPatterns = changes.matchPatterns;
+  if (matchPatterns) {
+    addBlockListener(matchPatterns.newValue);
+  }
 });
 
 function getMatchPatterns() {
@@ -16,25 +15,34 @@ function getMatchPatterns() {
 }
 
 function blockAndRedirect(requestDetails) {
-  console.log("Blocking " + requestDetails.url);
   return {
     redirectUrl: "https://google.com"
   };
 }
 
-function reloadMatchPatterns(listener) {
-  return getMatchPatterns().then(function(matchPatterns) {
-    console.log("Reloaded matchPatterns: " + matchPatterns);
-    if (listener) {
-      browser.webRequest.onBeforeRequest.removeListener(listener);
-    }
-    return browser.webRequest.onBeforeRequest.addListener(
-      blockAndRedirect,
-      {
-        urls: matchPatterns,
-        types: ["main_frame"]
-      },
-      ["blocking"]
-    );
+function reloadMatchPatterns() {
+  getMatchPatterns().then(function(matchPatterns) {
+    addBlockListener(matchPatterns);
   });
+}
+
+function removeBlockListener() {
+  if (browser.webRequest.onBeforeRequest.hasListener(blockAndRedirect)) {
+    browser.webRequest.onBeforeRequest.removeListener(blockAndRedirect);
+  }
+}
+
+function addBlockListener(matchPatterns) {
+  // Listeners are keyed by the function pointer provided here. Thus there's likely no need
+  // to explicitly remove the existing listener here, since it should just be replaced.
+  // This is done just to be safe, however, to avoid the possibility of a memory leak.
+  removeBlockListener();
+  browser.webRequest.onBeforeRequest.addListener(
+    blockAndRedirect,
+    {
+      urls: matchPatterns,
+      types: ["main_frame"]
+    },
+    ["blocking"]
+  );
 }
