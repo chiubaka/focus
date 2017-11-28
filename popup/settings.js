@@ -3,6 +3,7 @@ $(document).ready(function() {
     var newMatchPattern = $("#match-pattern-input").val();
     saveMatchPattern(newMatchPattern).then(function() {
       restoreMatchPatterns();
+      browser.runtime.sendMessage("reloadMatchPatterns");
 
       // var matchPatterns = $("#match-patterns");
       // matchPatterns.append(match);
