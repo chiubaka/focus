@@ -3,7 +3,14 @@
   "name": "Focus",
   "version": "0.0.1",
 
+  "applications": {
+    "gecko": {
+      "id": "focus@chiubaka.com"
+    }
+  },
+
   "permissions": [
+    "storage",
     "webRequest",
     "webRequestBlocking",
     "*://*/*"
