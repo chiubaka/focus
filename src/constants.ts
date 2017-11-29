@@ -1,0 +1,1 @@
+export const MATCH_PATTERNS_STORAGE_KEY = "matchPatterns";

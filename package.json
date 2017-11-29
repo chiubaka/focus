@@ -1,0 +1,49 @@
+{
+  "name": "focus",
+  "version": "0.0.1",
+  "description": "Intelligent distraction blocking. Block entire domains or just paths. Allows for distraction-free productivity without locking you out of things like Facebook login.",
+  "main": "background.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "build": "webpack",
+    "start": "webpack --progress --colors --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chiubaka/focus.git"
+  },
+  "keywords": [
+    "self-control",
+    "focus",
+    "block",
+    "sites",
+    "discipline",
+    "concentrate",
+    "concentration",
+    "self-discipline",
+    "productivity"
+  ],
+  "author": "Daniel Chiu <daniel@chiubaka.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chiubaka/focus/issues"
+  },
+  "homepage": "https://github.com/chiubaka/focus#readme",
+  "devDependencies": {
+    "@types/react": "^16.0.25",
+    "@types/react-dom": "^16.0.3",
+    "awesome-typescript-loader": "^3.4.0",
+    "html-loader": "^0.5.1",
+    "html-webpack-plugin": "^2.30.1",
+    "jquery": "^3.2.1",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-hot-loader": "^3.1.3",
+    "source-map-loader": "^0.2.3",
+    "typescript": "^2.6.2",
+    "web-ext-types": "^1.1.1",
+    "webpack": "^3.8.1"
+  }
+}
